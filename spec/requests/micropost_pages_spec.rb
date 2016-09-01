@@ -16,7 +16,7 @@ describe "Micropost pages" do
   			expect { click_button "Post" }.not_to change(Micropost, :count)
   		end
 
-  		describe "error messaes" do
+  		describe "error messages" do
   			before { click_button "Post" }
   			it { should have_content('error') }
   		end
@@ -31,7 +31,9 @@ describe "Micropost pages" do
   end
 
   describe "micropost destruction" do
-  	before { FactoryGirl.create(:micropost, user: user) }
+  	before do 
+      FactoryGirl.create(:micropost, user: user)       
+    end
 
   	describe "as correct user" do
   		before { visit root_path }
@@ -40,5 +42,14 @@ describe "Micropost pages" do
   			expect { click_link "delete" }.to change(Micropost, :count).by(-1)
   		end
   	end
+
+    describe "as incorrect user" do
+      let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+      let!(:m1) { FactoryGirl.create(:micropost, user: wrong_user) }
+
+      before { visit user_path(wrong_user) }
+
+      it { should_not have_link("delete") }
+    end
   end
 end

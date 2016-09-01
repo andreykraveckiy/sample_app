@@ -1,4 +1,4 @@
-<% if current_user?(i.user) %>
+<% if current_user?(i.user) %> 
 	<%= link_to "delete", i, method: :delete,
 								 	data: { confirmation: "You sure?" },
 								 	title: i.content %>
