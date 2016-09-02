@@ -33,7 +33,7 @@ describe "Static pages" do
       end
 
       describe "follower/followwing counts" do
-        let(:other_user) { FactoryGirl.create(:suer) }
+        let(:other_user) { FactoryGirl.create(:user) }
         before do
           other_user.follow!(user)
           visit root_path
